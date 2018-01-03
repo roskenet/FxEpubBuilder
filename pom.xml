@@ -31,25 +31,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-thymeleaf</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.asciidoctor</groupId>
 			<artifactId>asciidoctorj</artifactId>
 			<version>${asciidoctor.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring4 -->
-<dependency>
-    <groupId>org.thymeleaf</groupId>
-    <artifactId>thymeleaf-spring4</artifactId>
-    <version>3.0.9.RELEASE</version>
-</dependency>
-		<!-- 
 		<dependency>
-			<groupId>org.asciidoctor</groupId>
-			<artifactId>asciidoctorj-epub3</artifactId>
-			<version>1.5.0-alpha.4</version>
-			<scope>runtime</scope>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring4</artifactId>
 		</dependency>
- -->
+		<!-- <dependency> <groupId>org.asciidoctor</groupId> <artifactId>asciidoctorj-epub3</artifactId> 
+			<version>1.5.0-alpha.4</version> <scope>runtime</scope> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
