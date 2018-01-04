@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="styles/epub3.css"/>
 </head>
 <body>
-<section th:each="section : ${epub.document.parts}">
+<section th:each="section : ${parts}">
 <div th:utext="${section.content}">
 </div>
 </section>

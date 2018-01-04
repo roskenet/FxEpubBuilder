@@ -7,10 +7,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.zip.Deflater;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -18,6 +21,7 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.Attributes;
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
+import org.asciidoctor.ast.ContentPart;
 import org.asciidoctor.ast.StructuredDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -53,15 +57,17 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 	}
 	
 	private void testTemplateEngine(EpubDocument epub) throws Exception {
+		for (ContentPart contentPart : epub.getDocument().getParts()) {
+			
 		Map<String, Object> contentMap = new HashMap<>();
 		contentMap.put("epub", epub);
+		contentMap.put("parts", contentPart);
 		
 		Context context = new Context();
 		context.setLocale(Locale.GERMANY);
 		context.setVariables(contentMap);
 		
-		
-		ZipEntry entry = new ZipEntry("part_1.xhtml");
+		ZipEntry entry = new ZipEntry("OEBPS/part" + contentPart.getId() + ".xhtml");
 		epub.getOutStream().putNextEntry(entry);
 		
 		StringWriter writer = new StringWriter();
@@ -70,7 +76,33 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 		epub.getOutStream().write(writer.getBuffer().toString().getBytes());
 		epub.getOutStream().closeEntry();
 		
-		epub.getOutStream().close();
+		epub.getPackageList().add(new PackageEntry(
+				contentPart.getId(), 
+				"part" + contentPart.getId() + ".xhtml", 
+				"application/xhtml+xml", 
+				"scripted"));
+		
+		}
+	}
+	
+	private void writePackageOPF(EpubDocument epub) throws Exception {
+		Map<String, Object> contentMap = new HashMap<>();
+		contentMap.put("epub", epub);
+		contentMap.put("packageList", epub.getPackageList());
+		
+		Context context = new Context();
+		context.setLocale(Locale.GERMANY);
+		context.setVariables(contentMap);
+		
+		ZipEntry entry = new ZipEntry("OEBPS/package.opf");
+		epub.getOutStream().putNextEntry(entry);
+		
+		StringWriter writer = new StringWriter();
+		templateEngine.process("package_opf", context, writer);
+		
+		epub.getOutStream().write(writer.getBuffer().toString().getBytes());
+		epub.getOutStream().closeEntry();
+		
 	}
 
 	private ZipOutputStream createZipFile(String path) throws FileNotFoundException {
@@ -78,22 +110,53 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
 		return out;
 	}
-	
+	private void initPackageList(EpubDocument epub) {
+		List<PackageEntry> packageList = epub.getPackageList();
+		
+	}
 	@Override
 	public void run(String... args) throws Exception {
 		EpubDocument epub = new EpubDocument();
-		
+
 		ZipOutputStream outStream = createZipFile("/tmp/epub.zip");
+		initPackageList(epub);
+		
 		epub.setOutStream(outStream);
 	
 		writeManifest(epub);
+		writeMetaInf(epub);
 		
 		StructuredDocument document = getDocumentFrom("/home/dev/Temp/bourne/bourne.adoc");
 		epub.setDocument(document);
 		
 		testTemplateEngine(epub);
+		
+		writePackageOPF(epub);
+		
+		epub.getOutStream().close();
 	}
 
+	private void writeMetaInf(EpubDocument epub) throws Exception {
+		ZipEntry entry = new ZipEntry("META-INF/container.xml");
+		epub.getOutStream().putNextEntry(entry);
+		
+		File file = new File(getClass().getClassLoader().getResource("templates/container.xml").getFile());
+		
+		//read file into stream, try-with-resources
+		Files.lines(file.toPath(), Charset.defaultCharset()).forEach((s) -> {
+			try {
+				epub.getOutStream().write(s.toString().getBytes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+
+		
+		epub.getOutStream().closeEntry();
+	
+	}
+	
 	private void writeManifest(EpubDocument epub) throws Exception {
 		epub.getOutStream().setMethod(ZipOutputStream.STORED);
 		epub.getOutStream().setLevel(0);

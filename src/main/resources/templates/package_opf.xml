@@ -16,115 +16,15 @@
     <dc:subject>Spy</dc:subject>
     <dc:rights>Copyright</dc:rights>
     <meta property="dcterms:modified">2018-01-01T19:16:24Z</meta>
-    <meta name="cover" content="item_cover"/>
   </metadata>
   <manifest>
-    <item id="item_epub3" href="styles/epub3.css" media-type="text/css"/>
-    <item id="item_epub3-css3-only" href="styles/epub3-css3-only.css" media-type="text/css"/>
-    <item id="item_epub3-fonts" href="styles/epub3-fonts.css" media-type="text/css"/>
-    <item id="item_notoserif-regular-latin" href="fonts/notoserif-regular-latin.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_notoserif-italic-latin" href="fonts/notoserif-italic-latin.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_notoserif-bold-latin" href="fonts/notoserif-bold-latin.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_notoserif-bolditalic-latin" href="fonts/notoserif-bolditalic-latin.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_mplus1p-regular-latin" href="fonts/mplus1p-regular-latin.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_mplus1p-light-latin" href="fonts/mplus1p-light-latin.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_mplus1p-bold-latin" href="fonts/mplus1p-bold-latin.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_mplus1mn-regular-ascii-conums" href="fonts/mplus1mn-regular-ascii-conums.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_mplus1mn-italic-ascii" href="fonts/mplus1mn-italic-ascii.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_mplus1mn-bold-ascii" href="fonts/mplus1mn-bold-ascii.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_mplus1mn-bolditalic-ascii" href="fonts/mplus1mn-bolditalic-ascii.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_fontawesome-icons" href="fonts/fontawesome-icons.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_assorted-icons" href="fonts/assorted-icons.ttf" media-type="application/x-font-ttf"/>
-    <item id="item_cover" href="images/jacket/cover.png" media-type="image/png" properties="cover-image"/>
-    <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
-    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
-    <item id="cover" href="cover.xhtml" media-type="application/xhtml+xml" properties="svg"/>
-    <item id="item__author_booktitle" href="_author_booktitle.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__preface" href="_preface.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__book_i" href="_book_i.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__1" href="_1.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__2" href="_2.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__3" href="_3.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__4" href="_4.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__5" href="_5.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980333821840" href="_document_46980333821840.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__7" href="_7.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980330339460" href="_document_46980330339460.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980328318180" href="_document_46980328318180.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__book_ii" href="_book_ii.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980333556660" href="_document_46980333556660.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980332237460" href="_document_46980332237460.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980334060300" href="_document_46980334060300.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980332427140" href="_document_46980332427140.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980332430580" href="_document_46980332430580.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980335197820" href="_document_46980335197820.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980333809340" href="_document_46980333809340.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980335706980" href="_document_46980335706980.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980336161280" href="_document_46980336161280.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980336482660" href="_document_46980336482660.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980336783680" href="_document_46980336783680.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337041420" href="_document_46980337041420.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337387880" href="_document_46980337387880.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__book_iii" href="_book_iii.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337612940" href="_document_46980337612940.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337927400" href="_document_46980337927400.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337863380" href="_document_46980337863380.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337226960" href="_document_46980337226960.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980336738080" href="_document_46980336738080.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980336095840" href="_document_46980336095840.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980335375860" href="_document_46980335375860.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980333505580" href="_document_46980333505580.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980335195540" href="_document_46980335195540.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337585100" href="_document_46980337585100.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337459860" href="_document_46980337459860.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980336645040" href="_document_46980336645040.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980335401240" href="_document_46980335401240.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337611080" href="_document_46980337611080.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-    <item id="item__document_46980337041780" href="_document_46980337041780.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+      <item th:each="package : ${packageList}" id="id" href="document.xhtml" media-type="application/xhtml+xml" properties="scripted"
+        th:id="${package.id}" 
+        th:href="${package.href}"
+        th:media-type="${package.mediaType}"
+        th:properties="${package.properties}"/>
   </manifest>
   <spine toc="ncx">
-    <itemref idref="cover"/>
-    <itemref idref="item__author_booktitle"/>
-    <itemref idref="item__preface"/>
-    <itemref idref="item__book_i"/>
-    <itemref idref="item__1"/>
-    <itemref idref="item__2"/>
-    <itemref idref="item__3"/>
-    <itemref idref="item__4"/>
-    <itemref idref="item__5"/>
-    <itemref idref="item__document_46980333821840"/>
-    <itemref idref="item__7"/>
-    <itemref idref="item__document_46980330339460"/>
-    <itemref idref="item__document_46980328318180"/>
-    <itemref idref="item__book_ii"/>
-    <itemref idref="item__document_46980333556660"/>
-    <itemref idref="item__document_46980332237460"/>
-    <itemref idref="item__document_46980334060300"/>
-    <itemref idref="item__document_46980332427140"/>
-    <itemref idref="item__document_46980332430580"/>
-    <itemref idref="item__document_46980335197820"/>
-    <itemref idref="item__document_46980333809340"/>
-    <itemref idref="item__document_46980335706980"/>
-    <itemref idref="item__document_46980336161280"/>
-    <itemref idref="item__document_46980336482660"/>
-    <itemref idref="item__document_46980336783680"/>
-    <itemref idref="item__document_46980337041420"/>
-    <itemref idref="item__document_46980337387880"/>
-    <itemref idref="item__book_iii"/>
-    <itemref idref="item__document_46980337612940"/>
-    <itemref idref="item__document_46980337927400"/>
-    <itemref idref="item__document_46980337863380"/>
-    <itemref idref="item__document_46980337226960"/>
-    <itemref idref="item__document_46980336738080"/>
-    <itemref idref="item__document_46980336095840"/>
-    <itemref idref="item__document_46980335375860"/>
-    <itemref idref="item__document_46980333505580"/>
-    <itemref idref="item__document_46980335195540"/>
-    <itemref idref="item__document_46980337585100"/>
-    <itemref idref="item__document_46980337459860"/>
-    <itemref idref="item__document_46980336645040"/>
-    <itemref idref="item__document_46980335401240"/>
-    <itemref idref="item__document_46980337611080"/>
-    <itemref idref="item__document_46980337041780"/>
+    <itemref th:each="package : ${packageList}" idref="id" th:idref="${package.id}"/>
   </spine>
 </package>

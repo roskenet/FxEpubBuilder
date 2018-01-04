@@ -3,26 +3,25 @@ package de.roskenet.epub.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 public class TemplateEngineConfig {
 
 	@Bean
-	public TemplateResolver templateResolver() {
-		TemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-		templateResolver.setTemplateMode("XHTML");
+	public ITemplateResolver templateResolver() {
+		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+		templateResolver.setTemplateMode("XML");
 		templateResolver.setPrefix("templates/");
 		templateResolver.setSuffix(".xml");
 		return templateResolver;
 	}
 	
 	@Bean
-	public TemplateEngine templateEngine(TemplateResolver templateResolver) {
+	public TemplateEngine templateEngine(ITemplateResolver templateResolver) {
 		TemplateEngine templateEngine;
-		templateEngine = new SpringTemplateEngine();
+		templateEngine = new TemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver);
 		
 		return templateEngine;
