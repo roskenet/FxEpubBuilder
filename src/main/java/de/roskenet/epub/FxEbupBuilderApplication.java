@@ -56,31 +56,52 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 	}
 	
 	private void testTemplateEngine(EpubDocument epub) throws Exception {
-		for (ContentPart contentPart : epub.getDocument().getParts()) {
+		for (ContentPart outerParts : epub.getDocument().getParts()) {
 			
-		Map<String, Object> contentMap = new HashMap<>();
-		contentMap.put("epub", epub);
-		contentMap.put("parts", contentPart);
-		
-		Context context = new Context();
-		context.setLocale(Locale.GERMANY);
-		context.setVariables(contentMap);
-		
-		ZipEntry entry = new ZipEntry("OEBPS/part" + contentPart.getId() + ".xhtml");
-		epub.getOutStream().putNextEntry(entry);
-		
-		StringWriter writer = new StringWriter();
-		templateEngine.process("part", context, writer);
-		
-		epub.getOutStream().write(writer.getBuffer().toString().getBytes());
-		epub.getOutStream().closeEntry();
-		
-		epub.getPackageList().add(new PackageEntry(
-				contentPart.getId(), 
-				"part" + contentPart.getId() + ".xhtml", 
-				"application/xhtml+xml", 
-				"scripted"));
-		
+			Map<String, Object> outerMap = new HashMap<>();
+			outerMap.put("epub", epub);
+			outerMap.put("parts", outerParts);
+
+			Context outerContext = new Context();
+			outerContext.setLocale(Locale.GERMANY);
+			outerContext.setVariables(outerMap);
+
+			ZipEntry outerEntry = new ZipEntry("OEBPS/part" + outerParts.getId() + ".xhtml");
+			epub.getOutStream().putNextEntry(outerEntry);
+
+			StringWriter outerWriter = new StringWriter();
+			templateEngine.process("book", outerContext, outerWriter);
+
+			epub.getOutStream().write(outerWriter.getBuffer().toString().getBytes());
+			epub.getOutStream().closeEntry();
+
+			epub.getPackageList().add(new PackageEntry(outerParts.getId(), "part" + outerParts.getId() + ".xhtml",
+					"application/xhtml+xml", "scripted"));
+			
+			
+		for (ContentPart contentPart : outerParts.getParts()) {
+
+			Map<String, Object> contentMap = new HashMap<>();
+			contentMap.put("epub", epub);
+			contentMap.put("parts", contentPart);
+
+			Context context = new Context();
+			context.setLocale(Locale.GERMANY);
+			context.setVariables(contentMap);
+
+			ZipEntry entry = new ZipEntry("OEBPS/part" + contentPart.getId() + ".xhtml");
+			epub.getOutStream().putNextEntry(entry);
+
+			StringWriter writer = new StringWriter();
+			templateEngine.process("part", context, writer);
+
+			epub.getOutStream().write(writer.getBuffer().toString().getBytes());
+			epub.getOutStream().closeEntry();
+
+			epub.getPackageList().add(new PackageEntry(contentPart.getId(), "part" + contentPart.getId() + ".xhtml",
+					"application/xhtml+xml", "scripted"));
+
+		}
 		}
 	}
 	
@@ -125,6 +146,28 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 				"scripted"));
 		
 	}
+	
+	private void writeToc(EpubDocument epub) throws Exception {
+		Map<String, Object> contentMap = new HashMap<>();
+		contentMap.put("epub", epub);
+		
+		Context context = new Context();
+		context.setLocale(Locale.GERMANY);
+		context.setVariables(contentMap);
+		
+		ZipEntry entry = new ZipEntry("OEBPS/toc.ncx");
+		epub.getOutStream().putNextEntry(entry);
+		
+		StringWriter writer = new StringWriter();
+		templateEngine.process("toc_ncx", context, writer);
+		
+		epub.getOutStream().write(writer.getBuffer().toString().getBytes());
+		epub.getOutStream().closeEntry();
+//		epub.getPackageList().add(new PackageEntry("ncx", "toc.ncx", "application/x-dtbncx+xml", 
+//				"scripted"));
+		
+	}
+	
 	private ZipOutputStream createZipFile(String path) throws FileNotFoundException {
 		File f = new File(path);
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
@@ -153,6 +196,7 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 		
 		testTemplateEngine(epub);
 		
+		writeToc(epub);
 		writePackageOPF(epub);
 		
 		epub.getOutStream().close();

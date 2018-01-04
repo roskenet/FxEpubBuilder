@@ -27,6 +27,7 @@
         th:href="${package.href}"
         th:media-type="${package.mediaType}"
         th:properties="${package.properties}"/>
+       <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
   </manifest>
   <spine toc="ncx">
     <itemref th:each="package : ${packageList}" idref="id" th:idref="${package.id}"/>
