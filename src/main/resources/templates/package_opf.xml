@@ -18,6 +18,10 @@
     <meta property="dcterms:modified">2018-01-01T19:16:24Z</meta>
   </metadata>
   <manifest>
+      <item th:each="stylesheet : ${epub.stylesheetList}" id="id" href="styles/stylesheet.css" media-type="text/css"
+        th:id="${stylesheet.id}"
+        th:href="${stylesheet.href}"
+        th:media-type="${stylesheet.mediaType}"/>
       <item th:each="package : ${packageList}" id="id" href="document.xhtml" media-type="application/xhtml+xml" properties="scripted"
         th:id="${package.id}" 
         th:href="${package.href}"

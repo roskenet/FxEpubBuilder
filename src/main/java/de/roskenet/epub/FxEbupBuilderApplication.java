@@ -41,7 +41,6 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 				.create();
 		
 		Reader reader = new FileReader(new File(path));
-//		StringWriter writer = new StringWriter();
 		
 		Attributes attributes = AttributesBuilder.attributes().backend("html")
 				.get(); 
@@ -105,6 +104,27 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 		
 	}
 
+	private void writeTitlePage(EpubDocument epub) throws Exception {
+		Map<String, Object> contentMap = new HashMap<>();
+		contentMap.put("epub", epub);
+		
+		Context context = new Context();
+		context.setLocale(Locale.GERMANY);
+		context.setVariables(contentMap);
+		
+		ZipEntry entry = new ZipEntry("OEBPS/titlepage.xhtml");
+		epub.getOutStream().putNextEntry(entry);
+		
+		StringWriter writer = new StringWriter();
+		templateEngine.process("titlepage", context, writer);
+		
+		epub.getOutStream().write(writer.getBuffer().toString().getBytes());
+		epub.getOutStream().closeEntry();
+		
+		epub.getPackageList().add(new PackageEntry("_titlepage", "titlepage.xhtml", "application/xhtml+xml", 
+				"scripted"));
+		
+	}
 	private ZipOutputStream createZipFile(String path) throws FileNotFoundException {
 		File f = new File(path);
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
@@ -118,15 +138,17 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		EpubDocument epub = new EpubDocument();
 
-		ZipOutputStream outStream = createZipFile("/tmp/epub.zip");
+		ZipOutputStream outStream = createZipFile("/tmp/epub.epub");
 		initPackageList(epub);
 		
 		epub.setOutStream(outStream);
 	
+		writeStylesheets(epub);
 		writeManifest(epub);
 		writeMetaInf(epub);
+		writeTitlePage(epub);
 		
-		StructuredDocument document = getDocumentFrom("/home/dev/Temp/bourne/bourne.adoc");
+		StructuredDocument document = getDocumentFrom(args[0]);
 		epub.setDocument(document);
 		
 		testTemplateEngine(epub);
@@ -136,6 +158,26 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 		epub.getOutStream().close();
 	}
 
+	private void writeStylesheets(EpubDocument epub) throws Exception {
+		ZipEntry entry = new ZipEntry("OEBPS/styles/epub3.css");
+		epub.getOutStream().putNextEntry(entry);
+		
+		File file = new File(getClass().getClassLoader().getResource("templates/epub3.css").getFile());
+		
+		//read file into stream, try-with-resources
+		Files.lines(file.toPath(), Charset.defaultCharset()).forEach((s) -> {
+			try {
+				epub.getOutStream().write(s.toString().getBytes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		
+		epub.getOutStream().closeEntry();
+		epub.addStyleSheet(new PackageEntry("epub3_css", "styles/epub3.css", "text/css", ""));
+	}
+	
 	private void writeMetaInf(EpubDocument epub) throws Exception {
 		ZipEntry entry = new ZipEntry("META-INF/container.xml");
 		epub.getOutStream().putNextEntry(entry);

@@ -1,0 +1,86 @@
+@page {
+  margin: 1.6em;
+}
+
+body {
+  padding: 0 !important;
+  margin: 0;
+  font-size: 100%;
+  text-rendering: optimizeSpeed;
+}
+
+img {
+  border: 0;
+}
+
+p {
+  margin: 0 0 0 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.4; 
+  text-align: left;
+  word-wrap: break-word; 
+
+  page-break-inside: avoid;
+  page-break-after: avoid;
+}
+
+.paragraph {
+  margin: 1em 0 0 0;
+  text-align: justify;
+  text-indent: 0;
+
+  widows: 2;
+  orphans: 2;
+}
+
+.paragraph + .paragraph {
+  margin: 0 0 0 0;
+  text-indent: 1.3em;
+}
+
+.parskip p {
+  margin: 1em 0 0 0;
+  text-indent: 0;
+}
+
+p, li, dt, dd, footer {
+  line-height: 1.6;
+}
+
+code, kbd, pre {
+  color: #191918;
+  font-family: monospace; 
+}
+
+h1.chapter-title {
+  font-weight: 200;
+  font-size: 1.2em;
+  margin-top: 3.5em; 
+  margin-bottom: 0;
+  padding-bottom: 0.8333em; 
+  text-transform: uppercase;
+  word-spacing: -0.075em;
+  letter-spacing: -0.01em;
+}
+
+h1.chapter-title .subtitle {
+  font-weight: 400;
+  display: block;
+  font-size: 1.5em;
+  margin: 0 0 0 0; 
+  line-height: 1.2; 
+}
+
+h1.chapter-title em {
+  color: #57AD68;
+  font-style: normal;
+}
+
+h1.chapter-title b {
+  font-weight: inherit;
+}

@@ -7,12 +7,9 @@
 th:href="${stylesheet.href}" />
 </head>
 <body>
-<div class="sect0">
-<h1 id="_1" th:id="${parts.id}" th:text="${parts.title}">Title</h1>
-</div>
-<section th:each="section : ${parts}">
-<div th:utext="${section.content}">
-</div>
-</section>
+  <div class="titlepage">
+    <h1>Author</h1>
+    <h2>Title</h2>
+  </div>
 </body>
 </html>

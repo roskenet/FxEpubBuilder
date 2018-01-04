@@ -15,7 +15,16 @@ public class EpubDocument {
 	private List<String> navList = new ArrayList<>();
 	private List<PackageEntry> packageList = new ArrayList<>();
 	private ZipOutputStream outStream;
+	private List<PackageEntry> stylesheetList = new ArrayList<>();
 
+	public List<PackageEntry> getStylesheetList() {
+		return stylesheetList;
+	}
+
+	public void addStyleSheet(PackageEntry entry) {
+		stylesheetList.add(entry);
+	}
+	
 	public ZipOutputStream getOutStream() {
 		return outStream;
 	}
