@@ -1,5 +1,5 @@
 @page {
-  margin: 1.6em;
+  margin: 1.2em;
 }
 
 body {
@@ -9,26 +9,36 @@ body {
   text-rendering: optimizeSpeed;
 }
 
-img {
-  border: 0;
-}
-
 h1, h2, h3, h4, h5, h6 {
-  font-family: sans-serif;
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.4; 
-  text-align: left;
+  text-align: center;
   word-wrap: break-word; 
 
   page-break-inside: avoid;
   page-break-after: avoid;
 }
 
+div.titlepage {
+  margin: 4.2em 0 0 0;
+}
+
+.titlepage p {
+  margin: 0 0 0 0;
+  text-indent: 0;
+  font-weight: 400;
+  font-size: 140%;
+  line-height: 1.4;
+  text-align: center;
+  word-wrap: break-word;
+}
+
 p {
   margin: 1em 0 0 0;
   text-align: justify;
   text-indent: 0;
+  line-height: 1.6;
 
   widows: 2;
   orphans: 2;
@@ -41,10 +51,6 @@ p + p {
 p.parskip {
   margin: 1em 0 0 0;
   text-indent: 0;
-}
-
-p, li, dt, dd, footer {
-  line-height: 1.6;
 }
 
 code, kbd, pre {
@@ -69,13 +75,4 @@ h1.chapter-title .subtitle {
   font-size: 1.5em;
   margin: 0 0 0 0; 
   line-height: 1.2; 
-}
-
-h1.chapter-title em {
-  color: #57AD68;
-  font-style: normal;
-}
-
-h1.chapter-title b {
-  font-weight: inherit;
 }

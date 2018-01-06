@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -168,7 +167,6 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 		return out;
 	}
 	private void initPackageList(EpubDocument epub) {
-		List<PackageEntry> packageList = epub.getPackageList();
 		
 	}
 	@Override

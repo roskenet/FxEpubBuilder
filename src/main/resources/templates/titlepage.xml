@@ -8,8 +8,8 @@ th:href="${stylesheet.href}" />
 </head>
 <body>
   <div class="titlepage">
-    <h1 th:text="${epub.document.header.attributes['author']}">Author</h1>
-    <h2 th:text="${epub.document.header.attributes['doctitle']}">Title</h2>
+    <p class="author" th:text="${epub.document.header.attributes['author']}">Author</p>
+    <p class="title" th:text="${epub.document.header.attributes['doctitle']}">Title</p>
   </div>
 </body>
 </html>
