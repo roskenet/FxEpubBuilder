@@ -2,17 +2,17 @@
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="pub-identifier">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
     <dc:language id="pub-language">en</dc:language>
-    <dc:identifier id="pub-identifier">b7c90202-8a91-4b6a-92b8-2493d4f0cacf</dc:identifier>
+    <dc:identifier id="pub-identifier" th:text="${epub.document.header.attributes['uuid']}">the-uuid</dc:identifier>
     <meta property="identifier-type" refines="#pub-identifier">uuid</meta>
-    <dc:title id="pub-title">The Bourne Identity</dc:title>
+    <dc:title id="pub-title" th:text="${epub.document.header.attributes['doctitle']}">The Book Title</dc:title>
     <meta property="title-type" refines="#pub-title">main</meta>
     <dc:publisher>Ludlum, Robert</dc:publisher>
     <dc:creator id="creator1">Ludlum, Robert</dc:creator>
     <meta property="role" refines="#creator1">bkp</meta>
     <dc:creator id="creator2">MarthaPfahl</dc:creator>
     <meta property="role" refines="#creator2">cre</meta>
-    <dc:contributor>Robert Ludlum</dc:contributor>
-    <dc:date>2018-01-01T20:16:24Z</dc:date>
+    <dc:contributor th:text="${epub.document.header.attributes['author']}">Famous Author</dc:contributor>
+    <dc:date th:text="${epub.document.header.attributes['localdatetime']}">1970-01-01</dc:date>
     <dc:subject>Spy</dc:subject>
     <dc:rights>Copyright</dc:rights>
     <meta property="dcterms:modified">2018-01-01T19:16:24Z</meta>

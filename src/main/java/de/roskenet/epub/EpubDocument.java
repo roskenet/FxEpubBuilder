@@ -16,6 +16,7 @@ public class EpubDocument {
 	private List<PackageEntry> packageList = new ArrayList<>();
 	private ZipOutputStream outStream;
 	private List<PackageEntry> stylesheetList = new ArrayList<>();
+	private int playCounter = 1;
 
 	public List<PackageEntry> getStylesheetList() {
 		return stylesheetList;
@@ -57,11 +58,17 @@ public class EpubDocument {
 		this.navList = navList;
 	}
 
+	public void addToPackageList(PackageEntry entry) {
+		entry.setPlayOrder(playCounter);
+		playCounter++;
+		packageList.add(entry);
+	}
+
 	public List<PackageEntry> getPackageList() {
 		return packageList;
 	}
-
-	public void setPackageList(List<PackageEntry> packageList) {
-		this.packageList = packageList;
-	}
+//
+//	public void setPackageList(List<PackageEntry> packageList) {
+//		this.packageList = packageList;
+//	}
 }

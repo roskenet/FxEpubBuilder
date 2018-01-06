@@ -2,13 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
 <head>
 <meta charset="UTF-8"/>
-<title></title>
+<title th:text="${parts.title}">The Title</title>
 <link th:each="stylesheet : ${epub.stylesheetList}" rel="stylesheet" type="text/css" href="styles/epub3.css"
 th:href="${stylesheet.href}" />
 </head>
 <body>
-<div class="sect0">
-<h1 id="_1" th:id="${parts.id}" th:text="${parts.title}">Title</h1>
+<div class="preamble">
+<div class="content">
+<p th:each="paragraph : ${parts.parts}" 
+   th:class="${paragraph.role != null}?${paragraph.role}" 
+   th:utext="${paragraph.content}">The paragraph.</p>
+</div>
 </div>
 </body>
 </html>

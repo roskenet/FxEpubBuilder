@@ -8,9 +8,9 @@ th:href="${stylesheet.href}" />
 </head>
 <body>
 <div class="sect1">
-<h3 id="_1" th:id="${parts.id}" th:text="${parts.title}">Title</h3>
-<div class="content" th:each="section : ${parts}">
-<p th:each="paragraph : ${section.parts}" 
+<h2 id="_1" th:id="${parts.id}" th:text="${parts.title}">Title</h2>
+<div class="content">
+<p th:each="paragraph : ${parts.parts}" 
    th:class="${paragraph.role != null}?${paragraph.role}" 
    th:utext="${paragraph.content}">The paragraph.</p>
 </div>

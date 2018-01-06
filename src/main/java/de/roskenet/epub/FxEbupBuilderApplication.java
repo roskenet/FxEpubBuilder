@@ -55,53 +55,47 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 		return document;
 	}
 	
+	private void writeSubTreeAsFile(EpubDocument epub, ContentPart part, String template) throws IOException {
+		String id = part.getId();
+		
+		writeSubTreeAsFile(epub, part, template, id);
+	}
+	
+	private void writeSubTreeAsFile(EpubDocument epub, ContentPart part, String template, String id) throws IOException {
+		Map<String, Object> outerMap = new HashMap<>();
+		outerMap.put("epub", epub);
+		outerMap.put("parts", part);
+
+		Context outerContext = new Context();
+		outerContext.setLocale(Locale.GERMANY);
+		outerContext.setVariables(outerMap);
+
+		ZipEntry outerEntry = new ZipEntry("OEBPS/part" + id + ".xhtml");
+		epub.getOutStream().putNextEntry(outerEntry);
+
+		StringWriter outerWriter = new StringWriter();
+		templateEngine.process(template, outerContext, outerWriter);
+
+		epub.getOutStream().write(outerWriter.getBuffer().toString().getBytes());
+		epub.getOutStream().closeEntry();
+
+		epub.addToPackageList(new PackageEntry(id, "part" + id + ".xhtml",
+				"application/xhtml+xml", "scripted", part.getTitle(), true));
+	}
+	
 	private void testTemplateEngine(EpubDocument epub) throws Exception {
 		for (ContentPart outerParts : epub.getDocument().getParts()) {
+
+			if(outerParts.getContext().equals("preamble")) {
+				writeSubTreeAsFile(epub, outerParts, "preamble", "preamble");
+				continue;
+			}
+			writeSubTreeAsFile(epub, outerParts, "book");
 			
-			Map<String, Object> outerMap = new HashMap<>();
-			outerMap.put("epub", epub);
-			outerMap.put("parts", outerParts);
+			for (ContentPart contentPart : outerParts.getParts()) {
+				writeSubTreeAsFile(epub, contentPart, "part");
 
-			Context outerContext = new Context();
-			outerContext.setLocale(Locale.GERMANY);
-			outerContext.setVariables(outerMap);
-
-			ZipEntry outerEntry = new ZipEntry("OEBPS/part" + outerParts.getId() + ".xhtml");
-			epub.getOutStream().putNextEntry(outerEntry);
-
-			StringWriter outerWriter = new StringWriter();
-			templateEngine.process("book", outerContext, outerWriter);
-
-			epub.getOutStream().write(outerWriter.getBuffer().toString().getBytes());
-			epub.getOutStream().closeEntry();
-
-			epub.getPackageList().add(new PackageEntry(outerParts.getId(), "part" + outerParts.getId() + ".xhtml",
-					"application/xhtml+xml", "scripted"));
-			
-			
-		for (ContentPart contentPart : outerParts.getParts()) {
-
-			Map<String, Object> contentMap = new HashMap<>();
-			contentMap.put("epub", epub);
-			contentMap.put("parts", contentPart);
-
-			Context context = new Context();
-			context.setLocale(Locale.GERMANY);
-			context.setVariables(contentMap);
-
-			ZipEntry entry = new ZipEntry("OEBPS/part" + contentPart.getId() + ".xhtml");
-			epub.getOutStream().putNextEntry(entry);
-
-			StringWriter writer = new StringWriter();
-			templateEngine.process("part", context, writer);
-
-			epub.getOutStream().write(writer.getBuffer().toString().getBytes());
-			epub.getOutStream().closeEntry();
-
-			epub.getPackageList().add(new PackageEntry(contentPart.getId(), "part" + contentPart.getId() + ".xhtml",
-					"application/xhtml+xml", "scripted"));
-
-		}
+			}
 		}
 	}
 	
@@ -142,8 +136,8 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 		epub.getOutStream().write(writer.getBuffer().toString().getBytes());
 		epub.getOutStream().closeEntry();
 		
-		epub.getPackageList().add(new PackageEntry("_titlepage", "titlepage.xhtml", "application/xhtml+xml", 
-				"scripted"));
+		epub.addToPackageList(new PackageEntry("_titlepage", "titlepage.xhtml", "application/xhtml+xml", 
+				"scripted", "Title", true));
 		
 	}
 	
@@ -186,13 +180,14 @@ public class FxEbupBuilderApplication implements CommandLineRunner{
 		
 		epub.setOutStream(outStream);
 	
+		StructuredDocument document = getDocumentFrom(args[0]);
+		epub.setDocument(document);
+		
 		writeStylesheets(epub);
 		writeManifest(epub);
 		writeMetaInf(epub);
 		writeTitlePage(epub);
 		
-		StructuredDocument document = getDocumentFrom(args[0]);
-		epub.setDocument(document);
 		
 		testTemplateEngine(epub);
 		
